@@ -69,8 +69,9 @@ int main(int argc, char **argv)
     int cuda_device = 0; //Default, a better version would utilize every cuda
                          // enabled device and schedule across all of them
 
-    if( argc>1 ){
-        kernel_time = atoi(argv[1]);
+    if( argc>2 ){
+      throttle = atoi(argv[1]);
+      kernel_time = atoi(argv[2]);
     }
 
     //Getting device information, because we need clock_rate later
@@ -108,7 +109,7 @@ int main(int argc, char **argv)
     printf("The number of jobs equals: %d\n",jobs);
     printf("The current throttle is: %d\n", throttle);
     int est = (jobs/throttle)*kernel_time;
-    printf("The estimated time should be: %d",est);
+    printf("The estimated time should be: %d\n",est);
 
     cudaError cuda_error = cudaDeviceSynchronize();
     if(cuda_error==cudaSuccess){
